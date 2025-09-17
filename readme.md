@@ -6,9 +6,6 @@ A Python WebSocket console for debugging the ADSBee ADS-B receiver console.
 
 - **Tab completion** - Press Tab to complete commands and filters
 - **Hex value decoding** - Automatic decoding of ICAO addresses and message types
-- **Overlay help** - F1 shows help without cluttering logs
-- **? character support** - Use ? in AT commands (e.g., AT+FEED?)
-- **Smart log level control** - Doesn't force log level changes
 - **Color-coded messages** - Easy identification of message types
 - **Statistics overlay** - F2 shows stats without interrupting logs
 - **Command history** - Use ↑/↓ arrows to navigate previous commands
