@@ -245,7 +245,8 @@ class CleanMonitor:
         self.common_at_commands = [
             'AT+FEED?', 'AT+FEEDPROTOCOL?', 'AT+LOG_LEVEL=INFO',
             'AT+NETWORK_INFO?', 'AT+SETTINGS?', 'AT+FEEDEN?',
-            'AT+FEEDPROTOCOL=0,MQTT', 'AT+FEED=0,broker.hivemq.com,1883',
+            'AT+FEEDPROTOCOL=0,MQTT', 'AT+FEED=0,mqtt://broker.hivemq.com,1883,1,MQTT',
+            'AT+MQTTFMT=0,JSON', 'AT+MQTTFMT=0,BINARY',
             'AT+SETTINGS=SAVE', 'AT+REBOOT'
         ]
 
@@ -427,7 +428,9 @@ class CleanMonitor:
             "║   Examples:                                          ║",
             "║     AT+FEED?           - List feeds                  ║",
             "║     AT+FEEDPROTOCOL?   - Show protocols              ║",
-            "║     AT+LOG_LEVEL=INFO  - Set log level               ║",
+            "║     AT+MQTTFMT=0,JSON  - Set MQTT format             ║",
+            "║     AT+SETTINGS=SAVE   - Save settings               ║",
+            "║     AT+REBOOT          - Reboot device               ║",
             "║                                                       ║",
             "║ Press F1 to close help (? works in commands)         ║",
             "╚══════════════════════════════════════════════════════╝"
@@ -589,6 +592,9 @@ class CleanMonitor:
             prefix = input_text[3:].upper()
             at_commands = [
                 'FEED?', 'FEEDPROTOCOL?', 'FEEDPROTOCOL=0,MQTT', 'FEEDEN?', 'FEEDEN=0,1',
+                'FEED=0,mqtt://broker.hivemq.com,1883,1,MQTT',
+                'FEED=0,mqtt://test.mosquitto.org,1883,1,MQTT',
+                'MQTTFMT?', 'MQTTFMT=0,JSON', 'MQTTFMT=0,BINARY',
                 'LOG_LEVEL?', 'LOG_LEVEL=INFO', 'LOG_LEVEL=WARNINGS', 'LOG_LEVEL=ERRORS',
                 'NETWORK_INFO?', 'SETTINGS?', 'SETTINGS=SAVE', 'REBOOT', 'RX_ENABLE?'
             ]
@@ -678,6 +684,12 @@ class CleanMonitor:
                     for i in range(10):
                         suggestions.append(f'AT+FEED?{i}')
                         suggestions.append(f'AT+FEEDEN={i},1')
+                        suggestions.append(f'AT+FEED={i},mqtt://broker.hivemq.com,1883,1,MQTT')
+            elif upper_text.startswith('AT+MQTT'):
+                for i in range(10):
+                    suggestions.append(f'AT+MQTTFMT?{i}')
+                    suggestions.append(f'AT+MQTTFMT={i},JSON')
+                    suggestions.append(f'AT+MQTTFMT={i},BINARY')
 
         # Filter command history
         else:
@@ -922,7 +934,7 @@ class CleanMonitor:
 
 def main():
     parser = argparse.ArgumentParser(description='ADSBee Clean Monitor')
-    parser.add_argument('--host', default='192.168.4.1', help='ADSBee IP address')
+    parser.add_argument('--host', default='192.168.1.73', help='ADSBee IP address')
     parser.add_argument('--filter', '-f', action='append', help='Initial filter patterns')
     parser.add_argument('--log', '-l', help='Log output to file')
     parser.add_argument('--mqtt', action='store_true', help='Filter MQTT messages only')
