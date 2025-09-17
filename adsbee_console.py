@@ -934,7 +934,7 @@ class CleanMonitor:
 
 def main():
     parser = argparse.ArgumentParser(description='ADSBee Clean Monitor')
-    parser.add_argument('--host', default='192.168.1.73', help='ADSBee IP address')
+    parser.add_argument('--host', default='192.168.4.1', help='ADSBee IP address')
     parser.add_argument('--filter', '-f', action='append', help='Initial filter patterns')
     parser.add_argument('--log', '-l', help='Log output to file')
     parser.add_argument('--mqtt', action='store_true', help='Filter MQTT messages only')
