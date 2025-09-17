@@ -1,0 +1,26 @@
+# ADSBee Monitor Requirements
+#
+# Good news! We ONLY use Python standard library modules.
+# No external packages are required!
+#
+# Python Version: 3.6+ required (tested with 3.10)
+#
+# The monitors use these built-in modules:
+# - socket       (WebSocket implementation)
+# - base64       (WebSocket handshake)
+# - struct       (Binary data handling)
+# - sys, os      (System operations)
+# - time         (Timing functions)
+# - datetime     (Timestamps)
+# - argparse     (Command-line arguments)
+# - select       (I/O multiplexing)
+# - threading    (Concurrent operations)
+# - re           (Regular expressions)
+# - collections  (deque for buffers)
+# - termios, tty, fcntl  (Terminal control - Unix/Linux only)
+#
+# No pip install required!
+
+# Optional: If you want colored output in Windows, you could install:
+colorama==0.4.6
+# But this is NOT required - the monitors work without it.
